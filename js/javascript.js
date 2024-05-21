@@ -60,8 +60,8 @@ function getBackgroundImage(weatherIcon) {
         '02n': 'assets/few-clouds-night.jpg',
         '03d': 'assets/scattered-clouds.jpg',
         '03n': 'assets/scattered-clouds.jpg',
-        '04d': 'assets/broken-clouds.jpg',
-        '04n': 'assets/broken-clouds.jpg',
+        '04d': 'assets/broken-clouds-day.jpg',
+        '04n': 'assets/broken-clouds-night.jpg',
         '09d': 'assets/shower-rain.jpg',
         '09n': 'assets/shower-rain.jpg',
         '10d': 'assets/rain-day.jpg',
@@ -76,6 +76,5 @@ function getBackgroundImage(weatherIcon) {
 
     // Default background image if the icon is not found
     const defaultImage = 'assets/default-background.jpg';
-
     return iconToImageMap[weatherIcon] || defaultImage;
 }
