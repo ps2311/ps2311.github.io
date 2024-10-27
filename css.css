@@ -1,3 +1,10 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -5,6 +12,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     height: 100vh;
+    overflow: hidden;
 }
 
 .background-container {
@@ -28,34 +36,37 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    width: 80%;
+    max-width: 500px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+    height: auto;
 }
 
 h1 {
-  text-decoration: underline;
+    text-decoration: underline;
+    margin-bottom: 15px;
 }
 
 .search-container {
     display: flex;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 #locationInput {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px 0 0 4px;
 }
 
 #searchBtn {
-    padding: 10px;
+    padding: 8px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -65,33 +76,36 @@ h1 {
 }
 
 .weather-info, .forecast-info {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .forecast-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 20px;
-    gap: 10px;
+    gap: 8px;
+    margin-top: 15px;
 }
 
 .forecast-item {
-    width: 100px;
-    padding: 10px;
-    background-color: #e0f7fa;
+    width: 80px;
+    padding: 8px;
+    background-color: #3a6073; /* Darker blue for contrast */
+    color: #fff; /* Text color for contrast */
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .forecast-item img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-bottom: 5px;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.6)); /* Shadow to improve icon visibility */
 }
 
 .forecast-item p {
-    font-size: 14px;
+    font-size: 12px;
     margin: 5px 0;
+    color: #ffffff; /* Text color for visibility on darker background */
 }
