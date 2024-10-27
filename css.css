@@ -23,7 +23,7 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    background-image: url('assets/default-background.jpg');
+    background-image: url('assets/default-background.jpg'); /* Default image */
 }
 
 h1 {
