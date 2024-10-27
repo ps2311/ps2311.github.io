@@ -63,19 +63,26 @@ function displayWeather(data) {
 }
 
 function displayForecast(data) {
-    // Filter forecast to show only one entry per day, e.g., around noon (12:00)
+    const days = {};
     const dailyForecast = data.list.filter(item => {
         const dateTime = new Date(item.dt * 1000);
-        return dateTime.getHours() === 12; // Filter by 12:00 PM each day
-    }).slice(0, 5); // Limit to 5 days
+        const date = dateTime.toLocaleDateString(); // Get only the date part
 
-    const forecastItems = dailyForecast.map(item => {
+        // Check if the date has already been added and filter out any duplicates
+        if (!days[date] && (dateTime.getHours() === 12 || Object.keys(days).length < 5)) {
+            days[date] = item;
+            return true;
+        }
+        return false;
+    });
+
+    const forecastItems = Object.values(days).map(item => {
         const dateTime = new Date(item.dt * 1000);
         const day = dateTime.toLocaleDateString(undefined, { weekday: 'short' });
         const temp = item.main.temp;
         const desc = item.weather[0].description;
         const icon = item.weather[0].icon;
-        
+
         return `
             <div class="forecast-item">
                 <p>${day}</p>
