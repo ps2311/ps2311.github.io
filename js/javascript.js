@@ -4,6 +4,7 @@ const apiKey = '386a6dabf8ea3bf3fc2802077d1ebcae'; // Replace 'YOUR_API_KEY' wit
 const searchBtn = document.getElementById('searchBtn');
 const locationInput = document.getElementById('locationInput');
 const weatherInfo = document.getElementById('weatherInfo');
+const forecastInfo = document.getElementById('forecastInfo'); // Add an element for the forecast
 const background = document.querySelector('.background');
 
 searchBtn.addEventListener('click', () => {
@@ -16,6 +17,7 @@ searchBtn.addEventListener('click', () => {
 });
 
 function fetchWeather(location) {
+    // Fetch current weather data
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`)
         .then(response => {
             if (!response.ok) {
@@ -25,9 +27,19 @@ function fetchWeather(location) {
         })
         .then(data => {
             displayWeather(data);
+            return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=metric`);
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch forecast data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displayForecast(data);
         })
         .catch(error => {
-            console.error('Error fetching weather data:', error.message);
+            console.error('Error fetching data:', error.message);
             weatherInfo.innerHTML = '<p>Failed to fetch weather data. Please try again later.</p>';
         });
 }
@@ -51,8 +63,29 @@ function displayWeather(data) {
     `;
 }
 
+function displayForecast(data) {
+    const forecastItems = data.list.slice(0, 5).map(item => {
+        const dateTime = new Date(item.dt * 1000);
+        const day = dateTime.toLocaleDateString(undefined, { weekday: 'short' });
+        const time = dateTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+        const temp = item.main.temp;
+        const desc = item.weather[0].description;
+        const icon = item.weather[0].icon;
+        
+        return `
+            <div class="forecast-item">
+                <p>${day} ${time}</p>
+                <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
+                <p>${temp}°C</p>
+                <p>${desc}</p>
+            </div>
+        `;
+    }).join('');
+
+    forecastInfo.innerHTML = `<h3>5-Day Forecast:</h3><div class="forecast-container">${forecastItems}</div>`;
+}
+
 function getBackgroundImage(weatherIcon) {
-    // Map weather icons to background images
     const iconToImageMap = {
         '01d': 'assets/clear-sky-day.jpg',
         '01n': 'assets/clear-sky-night.jpg',
@@ -73,8 +106,6 @@ function getBackgroundImage(weatherIcon) {
         '50d': 'assets/mist-day.jpg',
         '50n': 'assets/mist-night.jpg'
     };
-
-    // Default background image if the icon is not found
     const defaultImage = 'assets/default-background.jpg';
     return iconToImageMap[weatherIcon] || defaultImage;
 }
