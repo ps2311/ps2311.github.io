@@ -18,7 +18,7 @@ searchBtn.addEventListener('click', () => {
 
 function fetchWeather(location) {
     // Fetch current weather data
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`)
+    fetch(https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch weather data');
@@ -52,15 +52,15 @@ function displayWeather(data) {
     const weatherIcon = data.weather[0].icon;
     const backgroundImage = getBackgroundImage(weatherIcon);
 
-    background.style.backgroundImage = `url('${backgroundImage}')`;
+    background.style.backgroundImage = url('${backgroundImage}');
 
-    weatherInfo.innerHTML = `
+    weatherInfo.innerHTML = 
         <h2>${data.name}</h2>
         <p>Temperature: ${temperature}°C</p>
         <p>Description: ${description}</p>
         <p>Humidity: ${humidity}%</p>
         <p>Wind Speed: ${windSpeed} m/s</p>
-    `;
+    ;
 }
 
 function displayForecast(data) {
@@ -72,17 +72,17 @@ function displayForecast(data) {
         const desc = item.weather[0].description;
         const icon = item.weather[0].icon;
         
-        return `
+        return 
             <div class="forecast-item">
                 <p>${day} ${time}</p>
                 <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
                 <p>${temp}°C</p>
                 <p>${desc}</p>
             </div>
-        `;
+        ;
     }).join('');
 
-    forecastInfo.innerHTML = `<h3>5-Day Forecast:</h3><div class="forecast-container">${forecastItems}</div>`;
+    forecastInfo.innerHTML = <h3>5-Day Forecast:</h3><div class="forecast-container">${forecastItems}</div>;
 }
 
 function getBackgroundImage(weatherIcon) {
