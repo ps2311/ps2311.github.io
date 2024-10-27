@@ -43,7 +43,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
-    height: auto;
 }
 
 h1 {
@@ -91,7 +90,7 @@ h1 {
 
 .forecast-item {
     width: 80px;
-    padding: 8px;
+    padding: 12px; /* Increased padding for more space */
     background-color: #3a6073; /* Darker blue for contrast */
     color: #fff; /* Text color for contrast */
     border-radius: 6px;
@@ -103,14 +102,10 @@ h1 {
     width: 40px;
     height: 40px;
     margin-bottom: 5px;
-}
-
-.forecast-item img[alt*="sun"] {
-    filter: none; /* Ensure sun icons are in original color */
-}
-
-.forecast-item img:not([alt*="sun"]) {
-    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.6)); /* Shadow for non-sun icons */
+    filter: none; /* Ensure no filter is applied */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    border-radius: 50%; /* Circular background for icons */
+    padding: 4px; /* Padding around the icons */
 }
 
 .forecast-item p {
