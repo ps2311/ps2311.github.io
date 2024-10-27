@@ -63,17 +63,22 @@ function displayWeather(data) {
 }
 
 function displayForecast(data) {
-    const forecastItems = data.list.slice(0, 5).map(item => {
+    // Filter forecast to show only one entry per day, e.g., around noon (12:00)
+    const dailyForecast = data.list.filter(item => {
+        const dateTime = new Date(item.dt * 1000);
+        return dateTime.getHours() === 12; // Filter by 12:00 PM each day
+    }).slice(0, 5); // Limit to 5 days
+
+    const forecastItems = dailyForecast.map(item => {
         const dateTime = new Date(item.dt * 1000);
         const day = dateTime.toLocaleDateString(undefined, { weekday: 'short' });
-        const time = dateTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
         const temp = item.main.temp;
         const desc = item.weather[0].description;
         const icon = item.weather[0].icon;
         
         return `
             <div class="forecast-item">
-                <p>${day} ${time}</p>
+                <p>${day}</p>
                 <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
                 <p>${temp}°C</p>
                 <p>${desc}</p>
