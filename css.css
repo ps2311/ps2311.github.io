@@ -90,7 +90,7 @@ h1 {
 
 .forecast-item {
     width: 80px;
-    padding: 12px; /* Increased padding for more space */
+    padding: 8px;
     background-color: #3a6073; /* Darker blue for contrast */
     color: #fff; /* Text color for contrast */
     border-radius: 6px;
@@ -102,10 +102,21 @@ h1 {
     width: 40px;
     height: 40px;
     margin-bottom: 5px;
-    filter: none; /* Ensure no filter is applied */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
-    border-radius: 50%; /* Circular background for icons */
-    padding: 4px; /* Padding around the icons */
+    /* Reset any applied filters */
+    filter: none;
+    opacity: 1;
+}
+
+/* Specifically target sun icons to ensure they display in original color */
+.forecast-item img[alt*="sun"] {
+    filter: none !important; /* Override any filter to keep color */
+    opacity: 1 !important;    /* Ensure full opacity */
+    background-color: transparent !important; /* Remove background interference */
+}
+
+/* Apply a filter only to non-sun icons */
+.forecast-item img:not([alt*="sun"]) {
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.6)); /* Shadow for non-sun icons */
 }
 
 .forecast-item p {
